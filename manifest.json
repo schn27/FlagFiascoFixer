@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "FlagFiascoFixer",
+  "version": "1.0",
+  "description": "One does not simple erase the Russian flag",
+  "content_scripts": [
+    {
+      "matches": ["*://paddock.worldsimseries.com/*"],
+      "js": ["content-wss.js"]
+    },
+    {
+      "matches": ["*://lowfuelmotorsport.com/*"],
+      "js": ["content-lfm.js"]
+    }
+  ],
+  "icons": {
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  }
+}
