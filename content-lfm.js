@@ -33,6 +33,7 @@ const observer = new MutationObserver(mutations => {
           fixWhiteFlag(node);
         } else if (node.nodeType == Node.ELEMENT_NODE) {
           node.querySelectorAll(":scope table.resulttable").forEach(fixErasedFlagInTable);
+          node.querySelectorAll(":scope img").forEach(fixWhiteFlag);
         }
       }
     } else if (mutation.type == "attributes" && mutation.attributeName == "src") {
