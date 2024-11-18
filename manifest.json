@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "FlagFiascoFixer",
-  "version": "1.1",
+  "version": "1.2",
   "description": "One does not simple erase the Russian flag",
   "content_scripts": [
     {

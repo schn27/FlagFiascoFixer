@@ -1,9 +1,26 @@
-const whiteFlagUrl = "assets/svg-country-flags/svg/ru.svg";
-const russianFlagUrl = "https://flagcdn.com/h40/ru.png";
+function isWhiteFlag(image) {
+  const whiteFlag = "assets/svg-country-flags/svg/ru.svg";
+  return image.src.endsWith(whiteFlag);
+}
 
-function fixWhiteFlag(image) {
-  if (image.src.endsWith(whiteFlagUrl)) {
-    image.src = russianFlagUrl;
+function isCdn(image) {
+  const сdn = "https://flagcdn.com";
+  return image.src.startsWith(сdn);
+}
+
+function getAltFlag(country) {
+  const altFlags = "https://purecatamphetamine.github.io/country-flag-icons/3x2/";
+  return altFlags + country.slice(0, 2).toUpperCase() + ".svg";
+}
+
+function fixFlag(image) {
+  if (isWhiteFlag(image)) {
+    image.src = getAltFlag("ru");
+
+  } else if (isCdn(image)) {
+    const t = image.src.split('/');
+    const country = t[t.length - 1].split('.')[0];
+    image.src = getAltFlag(country);
   }
 }
 
@@ -19,7 +36,7 @@ function fixErasedFlagInTable(table) {
       flagImg.setAttribute(attributeName, "");
       flagImg.className = "driverflag ng-star-inserted";
       flagImg.id = "countryflag";
-      flagImg.src = russianFlagUrl;
+      flagImg.src = getAltFlag("ru");
       cells[flagColumn].appendChild(flagImg);
     }
   });
@@ -30,14 +47,14 @@ const observer = new MutationObserver(mutations => {
     if (mutation.type == "childList") {
       for (let node of mutation.addedNodes) {
         if (node.nodeName == "IMG") {
-          fixWhiteFlag(node);
+          fixFlag(node)
         } else if (node.nodeType == Node.ELEMENT_NODE) {
           node.querySelectorAll(":scope table.resulttable").forEach(fixErasedFlagInTable);
-          node.querySelectorAll(":scope img").forEach(fixWhiteFlag);
+          node.querySelectorAll(":scope img").forEach(fixFlag);
         }
       }
     } else if (mutation.type == "attributes" && mutation.attributeName == "src") {
-      fixWhiteFlag(mutation.target);
+      fixFlag(mutation.target);
     }
   }
 });
