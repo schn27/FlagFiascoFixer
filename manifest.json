@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "FlagFiascoFixer",
   "version": "1.3",
-  "description": "One does not simple erase the Russian flag",
+  "description": "One does not simply erase the Russian flag",
   "content_scripts": [
     {
       "matches": ["*://paddock.worldsimseries.com/*"],
